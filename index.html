@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Access Form</title>
+</head>
+<body style="text-align:center; font-family:Arial; margin-top:100px;">
+  <h2>Please enable location to continue</h2>
+  <button onclick="getLocation()" style="padding:10px 20px; font-size:16px;">
+    Continue
+  </button>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            // Optional: capture location
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+
+            // Redirect to your Google Form
+            window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSfN1NaZqr1OQzbaslyoO9Sry-KTVaNgiO6Ljnmo8L2KnkRJcw/viewform?usp=header";
+          },
+          function(error) {
+            alert("Location is required to proceed.");
+          }
+        );
+      } else {
+        alert("Geolocation not supported.");
+      }
+    }
+  </script>
+</body>
+</html>

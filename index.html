@@ -1,24 +1,44 @@
-<script>
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function(position) {
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Access Form</title>
+</head>
 
-        // Encode the location properly
-        var locationText = encodeURIComponent(lat + "," + lon);
+<body style="text-align:center; font-family:Arial; margin-top:100px;">
 
-        var formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfZeKI8gZBe-sOaY7wexY3aLM0HgRk42QovqjrJcM1othsTYg/viewform?usp=pp_url&entry.1359051256=" + locationText;
+  <h2>Please enable location to continue</h2>
+  <button onclick="getLocation()" style="padding:10px 20px; font-size:16px;">
+    Continue
+  </button>
 
-        window.location.href = formURL;
-      },
-      function(error) {
-        alert("Location is required to proceed.");
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+
+            // Encode location properly
+            var locationText = encodeURIComponent(lat + "," + lon);
+
+            // Your Google Form link with correct entry ID
+            var formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfZeKI8gZBe-sOaY7wexY3aLM0HgRk42QovqjrJcM1othsTYg/viewform?usp=pp_url&entry.1359051256=" + locationText;
+
+            // Redirect to form
+            window.location.href = formURL;
+          },
+
+          function(error) {
+            alert("Location is required to proceed.");
+          }
+        );
+      } else {
+        alert("Geolocation not supported.");
       }
-    );
-  } else {
-    alert("Geolocation not supported.");
-  }
-}
-</script>
+    }
+  </script>
+
+</body>
+</html>

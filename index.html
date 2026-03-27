@@ -6,7 +6,8 @@ function getLocation() {
         var lat = position.coords.latitude;
         var lon = position.coords.longitude;
 
-        var locationText = lat + "," + lon;
+        // Encode the location properly
+        var locationText = encodeURIComponent(lat + "," + lon);
 
         var formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfZeKI8gZBe-sOaY7wexY3aLM0HgRk42QovqjrJcM1othsTYg/viewform?usp=pp_url&entry.1359051256=" + locationText;
 

